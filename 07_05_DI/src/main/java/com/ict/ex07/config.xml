@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+	<bean id="dao1" class="com.ict.ex07.OracleDAO"></bean>
+	<bean id="dao" class="com.ict.ex07.MySQLDAO"></bean>
+	
+	<!-- autowire : 참조하는 변수의 이름과 참조되는 bean의 id가 같으면 생략 후 autowire 사용 -->
+	<!-- 
+	<bean id="service" class="com.ict.ex06.Service">
+			<property name="dao" ref="dao"></property>
+	</bean>
+	 -->
+<!-- 	<bean id="service" class="com.ict.ex06.Service" autowire="byName"></bean> -->
+
+	<!-- 어노테이션 : 설정정보는 기본적으로 xml로 작성하지만, 자바코드에서 직접 설정하여서
+					  코딩을 좀 더 쉽게하는 방법을 말한다.
+					  자바코드에 @주석 을 달아 특별한 의미를 부여한다.
+					  
+		Spring의 어노테이션
+		@Component : 클래스에 대해서 bean 인스턴스 생성을 의미한다. : 객체생성의 의미.
+					 하위 그룹으로는 @Controller, @Service, @Repository가 있다.
+					 @Component를 구체화하면 위의 세개로 나누어진다.
+			> @Controller : Spring MVC패턴에서 Controller에 사용된다.
+			> @Service	  : 비즈니스로직(model)에 주로 사용된다.
+			> @Repository : DB에 접근하는 DAO에 주로 사용된다.
+			
+			추가적으로
+			@RestController : ajax에서 주로 사용되어진다.
+							: Controller는 디스패쳐 서블릿으로 되돌아가게 되어있지만,
+						      @RestController는 바로 브라우저에 표현되어진다.
+			@Autowired		: 참조되는 변수의 이름과 참조하는 bean의 id가 같을 때 사용(spring)
+			@Inject			: @Autowired와 같은 기능을 한다. spring 이 아닌 java
+			
+		어노테이션 설정 방법
+			1. Namespaces에서 context 추가.
+			2. <context : annotation-config/> 추가
+			3. <context : component-scan base-package="어노테이션할 패키지 지정"/>
+			4. 해당 자바코드에서 어노테이션 표시
+		 -->
+		 
+		 <context:annotation-config></context:annotation-config>
+		 <context:component-scan base-package="com.ict.ex07"></context:component-scan>
+		 
+</beans>
