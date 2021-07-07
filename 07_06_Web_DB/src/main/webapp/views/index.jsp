@@ -28,11 +28,14 @@
 	}
 	
 	table, th, td{
-		border: 5px solid lightpink;
+		border: 3px solid lightpink;
 		border-collapse: collapse;
 	}
 	h1{
 		text-align: center;
+	}
+	a{
+	text-decoration: none;
 	}
 }
 </style>
@@ -40,7 +43,7 @@
 <body>
 	<div>
 		<h1> 전체 회원 정보 보기 </h1>
-		<p> [인원 추가] </p>
+		<p> <a href="join.jsp">[인원 추가]</a> </p>
 		<table>
 			<thead>
 				<tr>

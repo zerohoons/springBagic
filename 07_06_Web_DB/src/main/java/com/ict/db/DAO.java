@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO {
-	Connection conn ;
+	Connection conn;
 	PreparedStatement pstm;
 	ResultSet rs;
-	
+
 	private static DAO dao = new DAO();
-	
+
 	public static DAO getInstance() {
 		return dao;
 	}
-	
-	// DB 접속 
+
+	// DB 접속
 	public Connection getConnection() {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
@@ -31,16 +31,16 @@ public class DAO {
 		}
 		return conn;
 	}
-	
+
 	// 리스트
-	public List<VO> getList(){
+	public List<VO> getList() {
 		List<VO> list = new ArrayList<VO>();
 		try {
 			conn = getConnection();
 			String sql = "select * from members order by idx";
 			pstm = conn.prepareStatement(sql);
 			rs = pstm.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				VO vo = new VO();
 				vo.setIdx(rs.getString("idx"));
 				vo.setId(rs.getString("id"));
@@ -51,7 +51,7 @@ public class DAO {
 				vo.setReg(rs.getString("reg").substring(0, 10));
 				list.add(vo);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -62,13 +62,32 @@ public class DAO {
 			} catch (Exception e2) {
 			}
 		}
-		
+
 		return list;
 	}
+
+	public int getInsert(VO vo) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String sql = "insert into members values (members_seq.nextval, ?,?,?,?,?,sysdate)";
+			pstm = conn.prepareStatement(sql);
+
+			pstm.setString(1, vo.getId());
+			pstm.setString(2, vo.getPw());
+			pstm.setString(3, vo.getName());
+			pstm.setString(4, vo.getAge());
+			pstm.setString(5, vo.getAddr());
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			try {
+
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+
+		return result;
+	}
 }
-
-
-
-
-
-
