@@ -5,18 +5,18 @@
 <mapper namespace="members">
 
 	<select id="list" resultType="com.ict.db.VO">
-		select * from guestbook orderby idx
+		select * from guestbook order by idx
 	</select>
-	
 	<insert id="insert" parameterType="com.ict.db.VO">
-		insert into guestbook values()
+		insert into guestbook values(guestbook_seq.nextval,#{name},#{subject},#{content},#{email},#{pwd},sysdate)   
 	</insert>
-	
 	<select id="onelist" parameterType="String" resultType="com.ict.db.VO">
-		select * form guestbook where idx=#{idx}
+		select * from guestbook where idx = #{idx}
 	</select>
-	
 	<delete id="delete" parameterType="String">
-		delete form guestbook where idx=#{idx}
+		delete from guestbook where idx = #{idx}
 	</delete>
+	<update id="update" parameterType="com.ict.db.VO">
+		update guestbook set  name=#{name}, subject=#{subject}, content=#{content}, email=#{email} where idx=#{idx}
+	</update>
 </mapper>

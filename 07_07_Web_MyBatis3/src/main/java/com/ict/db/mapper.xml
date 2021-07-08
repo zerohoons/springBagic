@@ -2,14 +2,20 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="members">
-
-	<select id="list" resultType="com.ict.db.VO">
-		select * from members order by idx
+<mapper namespace="guestbook">
+	<select id="list" resultType="com.ict.db.VO" parameterType="Map">
+		<!-- select * from members where idx = #{idx}
+		select * from members where id = #{id}
+		select * from members where name = #{name}
+		select * from members where age = #{age} -->
+		
+		<!-- choose 문을 이용하여 if문 처럼 적용하기 -->
+		select * from members
+		<choose>
+			<when test="search==1"> where idx = #{keyword}</when>
+			<when test="search==2"> where id = #{keyword}</when>
+			<when test="search==3"> where lower(name) like '%' || #{keyword} || '%'</when>
+			<when test="search==4"> where age >= #{keyword}</when>
+		</choose>
 	</select>
-
-	<insert id="insert" parameterType="com.ict.db.vo">
-		insert into members values(members_seq.nextval, #{id}, #{pw}, #{name}, #{age}, #{addr}, sysdate)
-	</insert>
-	
 </mapper>

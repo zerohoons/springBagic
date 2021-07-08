@@ -9,14 +9,10 @@
 <%
 	WebApplicationContext context =
 		WebApplicationContextUtils.getWebApplicationContext(application);
-
-   DAO dao = (DAO)context.getBean("dao");
-   
-   List<VO> list = dao.getList();
-   
-   // pageContext, request, session, application 중 하나에 저장되어야 EL, JSTL을 사용할 수 있다.
-   pageContext.setAttribute("list", list);
-   %>  
+    DAO dao = (DAO)context.getBean("dao");
+    List<VO> list = dao.getSelectList();
+    pageContext.setAttribute("list", list);
+%>
 <!DOCTYPE html>
 <html>
 <head>

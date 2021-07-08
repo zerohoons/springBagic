@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- AOP -->
+	<!-- 필수! pom.xml에서 aop라이브러리 추가. -->
+	<!-- 1. NameSpaces에서 AOP 추가 -->
+	<!-- 2. 관련있는 객체 생성 -->
+	<bean id="boy" class="com.ict.ex03.Boy"></bean>
+	<bean id="girl" class="com.ict.ex03.Girl"></bean>
+	<bean id="myAspect" class="com.ict.ex03.MyAspect"></bean>
+	
+	<!-- 3. AOP작성 -->
+	<aop:config>
+		<!-- 어느지점에서 실행할 지 설정 : aop:pointcut을 설정하는 것 -->
+<!-- 		<aop:pointcut expression="execution(* doSomthing())" id="myPointCut"/> -->
+		<aop:pointcut expression="execution(* do*())" id="myPointCut"/> <!-- do로 시작되는 모든 메소드 실행 -->
+		
+		<!-- 무엇을 언제할 지 지정(DI 필요) -->
+		<aop:aspect ref="myAspect">
+			<aop:before method="pre" pointcut-ref="myPointCut"/>
+			<aop:after method="next" pointcut-ref="myPointCut"/>
+			<aop:around method="around" pointcut-ref="myPointCut"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

@@ -11,35 +11,39 @@ public class DAO {
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlsessionTemplate) {
 		this.sqlsessionTemplate = sqlsessionTemplate; 
 	}
-	
-	public List<VO> getList() {
-		List<VO> list = new ArrayList<VO>();
-		list = sqlsessionTemplate.selectList("list");
+	// list
+		public List<VO> getSelectList(){
+			List<VO> list  = null;
+			list = sqlsessionTemplate.selectList("list");
+			return list;
+		}
 		
-		return list;	
-	}
-	
-	public int getInsert(VO vo) {
-		int result = 0;
-		result = sqlsessionTemplate.insert("insert",vo);
-		return result;
-	}
-	
-	public VO getSelectOne(String idx) {
-		VO vo = null;
-		vo = sqlsessionTemplate.selectOne("onelist", idx);
-		return vo;
-	}
-	
-	public int getDelete(String idx) {
-		int result = 0;
-		result = sqlsessionTemplate.delete("delete", idx);
-		return result;
-	}
-	
-	public int getUpdate(VO vo) {
-		int result = 0;
-		result = sqlsessionTemplate.update("update",vo);
-		return result;
-	}
+		// insert
+		public int getInsert(VO vo) {
+			int result = 0 ;
+			result = sqlsessionTemplate.insert("insert", vo);
+			return result;
+		}
+		
+		// onelist
+		public VO getSelectOne(String idx) {
+			VO vo = null;
+			vo = sqlsessionTemplate.selectOne("onelist", idx);
+			return vo;
+		}
+		
+		// delete
+		public int getDelete(String idx) {
+			int result = 0 ;
+			result = sqlsessionTemplate.delete("delete", idx);
+			return result;
+		}
+		
+		// update
+		public int getUpdate(VO vo) {
+			int result = 0 ;
+			result = sqlsessionTemplate.update("update", vo);
+			return result;
+		}
+		
 }
