@@ -1,0 +1,37 @@
+1. 프로젝트 생성
+	> Properties - projectFacts - java 1.8 설정 -tomcat 설정
+
+2. pox.xml
+	>java-version, org.springframework-version, source, target 수정
+	 각종 라이브러리 dependency 수정 (의존성 주입)	
+
+3. web.xml 설정
+	> applicationContext.xml 이름과 위치 변경되어있음.
+	> listener 설정되어 있음
+	> MVC 패턴에 필요한 DispatcherServlet의 위치와 이름 및 사용시기는 설정되어있다.
+		- <url-pattern></url-pattern>에 사용된 정보가 외부에서 들어오면,
+		  DispatcherServlet인 /WEB-INF/spring/appServlet/servlet-context.xml로 정보 전송.
+
+	> <url-pattern>을 *.do로 수정하여 do 확장자 컨트롤러 이동 전환
+	> 한글처리
+		-
+		<filter>
+			<filter-name>encodingFilter</filter-name>
+			<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+			</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>UTF-8</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>encodingFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+
+	> 시작페이지 설정 (선택사항)
+		-
+	 	<welcome-file-list>
+			<welcome-file>/WEB-INF/views/index.jsp</welcome-file>
+			<welcome-file>/WEB-INF/views/index.html</welcome-file>
+		</welcome-file-list>
